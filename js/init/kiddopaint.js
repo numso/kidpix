@@ -40,9 +40,11 @@ function fullscreen_setup() {
 }
 
 function do_resize() {
-    const canvas = document.getElementById('kiddopaint');
+    KiddoPaint.Display.saveToLocalStorage()
+    const canvas = document.getElementById('kiddopaint')
     canvas.width = window.innerWidth - 120
     canvas.height = window.innerHeight - 70
+    KiddoPaint.Display.loadFromLocalStorage()
 }
 
 function resize_canvas() {
