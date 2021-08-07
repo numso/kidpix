@@ -18,9 +18,13 @@ function fullscreen_setup() {
     const fsButton = document.getElementById('fullscreen')
     if (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled) {
         const fsChangeHandler = () => {
-            const isFullScreened = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
-            if (isFullScreened) fsButton.classList.add('hidden')
-            else fsButton.classList.remove('hidden')
+            const isFullScreened = document.fullscreenElement || document.webkitIsFullScreen || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
+            if (isFullScreened) {
+                setTimeout(do_resize, 100)
+                fsButton.classList.add('hidden')
+            } else {
+                fsButton.classList.remove('hidden')
+            }
         }
         document.addEventListener('fullscreenchange', fsChangeHandler)
         document.addEventListener('onwebkitfullscreenchange', fsChangeHandler)
@@ -28,25 +32,23 @@ function fullscreen_setup() {
         document.addEventListener('onmsfullscreenchange', fsChangeHandler)
         fsButton.addEventListener('click', () => {
             const fn = document.body.requestFullscreen || document.body.webkitRequestFullscreen || document.body.mozRequestFullScreen || document.body.msRequestFullscreen
-            fn.call(document.body, {
-                navigationUI: 'hide'
-            })
+            fn.call(document.body, { navigationUI: 'hide' })
         })
     } else {
         fsButton.remove()
     }
 }
 
-function resize_canvas() {
-    // TODO properly measure topbar and sidebar
+function do_resize() {
     const canvas = document.getElementById('kiddopaint');
     canvas.width = window.innerWidth - 120
     canvas.height = window.innerHeight - 70
-    window.addEventListener('resize', () => {
-        console.log('resizing')
-        canvas.width = window.innerWidth - 120
-        canvas.height = window.innerHeight - 70
-    })
+}
+
+function resize_canvas() {
+    // TODO properly measure topbar and sidebar
+    do_resize()
+    window.addEventListener('resize', do_resize)
 }
 
 function init_kiddo_paint() {
