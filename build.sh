@@ -29,4 +29,11 @@ node_modules/uglify-es/bin/uglifyjs -bo js/app.js \
 echo "" >> js/app.js
 echo "// $(date)" >> js/app.js
 
+mkdir -p dist/js
+cp index.html dist
+cp js/app.js dist/js
+cp -r css dist
+cp -r img dist
+cp -r snd dist
+
 echo . done.
