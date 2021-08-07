@@ -28,7 +28,9 @@ function fullscreen_setup() {
         document.addEventListener('onmsfullscreenchange', fsChangeHandler)
         fsButton.addEventListener('click', () => {
             const fn = document.body.requestFullscreen || document.body.webkitRequestFullscreen || document.body.mozRequestFullScreen || document.body.msRequestFullscreen
-            fn.call(document.body, { navigationUI: 'hide' })
+            fn.call(document.body, {
+                navigationUI: 'hide'
+            })
         })
     } else {
         fsButton.remove()
@@ -38,12 +40,12 @@ function fullscreen_setup() {
 function resize_canvas() {
     // TODO properly measure topbar and sidebar
     const canvas = document.getElementById('kiddopaint');
-    canvas.width = window.innerWidth - 80
-    canvas.height = window.innerHeight - 80
+    canvas.width = window.innerWidth - 120
+    canvas.height = window.innerHeight - 70
     window.addEventListener('resize', () => {
         console.log('resizing')
-        canvas.width = window.innerWidth - 80
-        canvas.height = window.innerHeight - 80
+        canvas.width = window.innerWidth - 120
+        canvas.height = window.innerHeight - 70
     })
 }
 
