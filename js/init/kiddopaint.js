@@ -35,12 +35,25 @@ function fullscreen_setup() {
     }
 }
 
+function resize_canvas() {
+    // TODO properly measure topbar and sidebar
+    const canvas = document.getElementById('kiddopaint');
+    canvas.width = window.innerWidth - 80
+    canvas.height = window.innerHeight - 80
+    window.addEventListener('resize', () => {
+        console.log('resizing')
+        canvas.width = window.innerWidth - 80
+        canvas.height = window.innerHeight - 80
+    })
+}
+
 function init_kiddo_paint() {
     document.addEventListener("contextmenu", function(e) {
         e.preventDefault();
     }, false);
 
     fullscreen_setup()
+    resize_canvas()
 
     var canvas = document.getElementById('kiddopaint');
     if (canvas.getContext) {
