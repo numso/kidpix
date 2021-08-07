@@ -41,9 +41,12 @@ function fullscreen_setup() {
 
 function do_resize() {
     KiddoPaint.Display.saveToLocalStorage()
-    const canvas = document.getElementById('kiddopaint')
-    canvas.width = window.innerWidth - 120
-    canvas.height = window.innerHeight - 70
+    const canvi = ['kiddopaint', 'bnimCanvas', 'animCanvas', 'previewCanvas', 'tmpCanvas']
+    canvi.forEach(id => {
+        const canvas = document.getElementById(id)
+        canvas.width = window.innerWidth - 120
+        canvas.height = window.innerHeight - 70
+    })
     KiddoPaint.Display.loadFromLocalStorage()
 }
 
@@ -59,7 +62,6 @@ function init_kiddo_paint() {
     }, false);
 
     fullscreen_setup()
-    resize_canvas()
 
     var canvas = document.getElementById('kiddopaint');
     if (canvas.getContext) {
@@ -130,6 +132,7 @@ function init_kiddo_paint() {
         init_subtool_bars();
         init_color_selector();
     }
+    resize_canvas()
 }
 
 function init_kiddo_defaults() {
