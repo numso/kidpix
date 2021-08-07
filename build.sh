@@ -31,6 +31,7 @@ echo "// $(date)" >> js/app.js
 
 mkdir -p dist/js
 cp index.html dist
+cp manifest.webmanifest dist
 cp js/app.js dist/js
 cp -r css dist
 cp -r img dist
