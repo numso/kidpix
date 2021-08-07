@@ -14,10 +14,33 @@ KiddoPaint.Cache = {};
 KiddoPaint.Alphabet = {};
 KiddoPaint.Sprite = {};
 
+function fullscreen_setup() {
+    const fsButton = document.getElementById('fullscreen')
+    if (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled) {
+        const fsChangeHandler = () => {
+            const isFullScreened = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
+            if (isFullScreened) fsButton.classList.add('hidden')
+            else fsButton.classList.remove('hidden')
+        }
+        document.addEventListener('fullscreenchange', fsChangeHandler)
+        document.addEventListener('onwebkitfullscreenchange', fsChangeHandler)
+        document.addEventListener('onmozfullscreenchange', fsChangeHandler)
+        document.addEventListener('onmsfullscreenchange', fsChangeHandler)
+        fsButton.addEventListener('click', () => {
+            const fn = document.body.requestFullscreen || document.body.webkitRequestFullscreen || document.body.mozRequestFullScreen || document.body.msRequestFullscreen
+            fn.call(document.body, { navigationUI: 'hide' })
+        })
+    } else {
+        fsButton.remove()
+    }
+}
+
 function init_kiddo_paint() {
     document.addEventListener("contextmenu", function(e) {
         e.preventDefault();
     }, false);
+
+    fullscreen_setup()
 
     var canvas = document.getElementById('kiddopaint');
     if (canvas.getContext) {
